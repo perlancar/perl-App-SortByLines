@@ -62,10 +62,12 @@ sub run {
     }
 
     my ($eof1, $eof2);
+    my $linenum = 0;
     my @lines;
     while (1) {
         my $line1;
         unless ($eof1) {
+            $linenum++;
             $line1 = <$fh1>;
             $eof1++ unless defined $line1;
         }
@@ -78,6 +80,7 @@ sub run {
         push @lines, [
             $line1,
             $Opts{ignore_case} ? lc($line2 // '') : ($line2 // ''),
+            $linenum,
         ];
     }
 
@@ -85,15 +88,15 @@ sub run {
         no warnings 'numeric';
         if ($Opts{reverse}) {
             if ($Opts{numeric}) {
-                @lines = sort { $b->[1] <=> $a->[1] } @lines;
+                @lines = sort { $b->[1] <=> $a->[1] || $b->[2] <=> $a->[2] } @lines;
             } else {
-                @lines = sort { $b->[1] cmp $a->[1] } @lines;
+                @lines = sort { $b->[1] cmp $a->[1] || $b->[2] <=> $a->[2] } @lines;
             }
         } else {
             if ($Opts{numeric}) {
-                @lines = sort { $a->[1] <=> $b->[1] } @lines;
+                @lines = sort { $a->[1] <=> $b->[1] || $a->[2] <=> $b->[2] } @lines;
             } else {
-                @lines = sort { $a->[1] cmp $b->[1] } @lines;
+                @lines = sort { $a->[1] cmp $b->[1] || $a->[2] <=> $b->[2] } @lines;
             }
         }
     }
