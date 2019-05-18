@@ -168,11 +168,19 @@ This utility sorts lines of text by other lines of text as keys.
 
 =head1 SEE ALSO
 
-Unix command B<sort>.
-
 L<https://en.wikipedia.org/wiki/Schwartzian_transform> in Perl 5.
 
 Unary sort or "sort by" implementations in other languages like Perl 6, Python,
 etc.
+
+Unix command B<sort>, particularly the C<-k> (C<--key>) option. To do a
+schwartzian transform on the command-line, using the Tab character to separate
+the key and value (meaning Tab character in FILE2 will confuse the result):
+
+ % paste FILE2 FILE1 | sort -s -k1,2n | cut -f2-
+
+Also notice the use of C<-s> (C<--stable>) option to preseve the order of lines
+of the same length. Thanks to Ed Morton for the above tip
+(L<https://stackoverflow.com/questions/56200144/how-to-sort-lines-of-text-by-other-lines-of-text-as-keys/56200757>).
 
 =cut
