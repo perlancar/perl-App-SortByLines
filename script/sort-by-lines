@@ -177,7 +177,7 @@ Unary sort or "sort by" implementations in other languages like Perl 6, Python,
 etc.
 
 Unix command B<sort>, particularly the C<-k> (C<--key>) option. To do a
-schwartzian transform on the command-line, using the Tab character to separate
+Schwartzian transform on the command-line, using the Tab character to separate
 the key and value (meaning Tab character in FILE2 will confuse the result):
 
  % paste FILE2 FILE1 | sort -s -k1,2n | cut -f2-
